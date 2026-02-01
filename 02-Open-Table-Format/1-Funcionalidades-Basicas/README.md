@@ -13,23 +13,39 @@ Observe que o Amazon Athena fornece suporte integrado para o Apache Iceberg, par
 
 ---
 
+## Pré-requisitos e criação do ambiente
+
+1. No codespace da disciplina, abra um terminal integrado.
+2. No terminal, Execute este script para preparar automaticamente o ambiente de laboratório no Athena, baixando os dados TPC-DS, enviando-os ao S3 e criando todas as tabelas necessárias para as consultas:
+
+``` bash
+bash setup_athena_tpcds.sh
+```
+![img/criacao-tabela.png](img/criacao-tabela.png)
+
 ## Configurando o Athena
 
-1. Navegue até o [console do Amazon Athena](https://us-east-1.console.aws.amazon.com/athena/home?region=us-east-1#/landing-page) usando a barra de pesquisa.
+1. Navegue até o [console do Amazon Athena](https://us-east-1.console.aws.amazon.com/athena/home?region=us-east-1#/landing-page) usando o link.
 
-![athena_searchbar](img/athena_searchbar.png)
-
-2. Selecione **Consultar seus dados com o Trino SQL** e depois **Iniciar editor de consultas**.
+2. Selecione **Consulte seus dados no console do Athena** e depois **Iniciar editor de consultas**.
 
 ![athena_searchbar](img/athena_launch_query_editor.png)
 
-3. Quando estiver dentro do Amazon Athena, clique em **Editar configurações**.
+3. Quando estiver dentro do Amazon Athena, clique em **Editar configurações**. Em seguida clique em **Gerenciar**.
 
 ![athena_setup](img/athena_initial_setup.png)
 
-4. Configure `s3://otfs-workshop-data-<your-account-id>/athena_res/` como **Localização do resultado da consulta** e clique em **Salvar**. Substitua `<your-account-id>` pelo ID da conta atual. Isso garantirá que os resultados das consultas sejam armazenados em um local específico no Amazon S3.
+![athena_setup1](img/athena_initial_setup1.png)
+
+4. Clique em `Browse S3`, clique no bucket que inicia com `otfs-aula` e selecione a pasta `athena_res/`. CLique em `Choose` e `Salvar` em sequencia. Isso garantirá que os resultados das consultas sejam armazenados em um local específico no Amazon S3.
 
 ![athena_reslocation_setup](img/athena_reslocation_setup.png)
+
+![athena_reslocation_setup](img/athena_reslocation_setup1.png)
+
+![athena_reslocation_setup](img/athena_reslocation_setup2.png)
+
+![athena_reslocation_setup](img/athena_reslocation_setup3.png)
 
 5. Selecione **Editor** para a página do editor de consultas.
 
@@ -58,7 +74,7 @@ CREATE TABLE athena_iceberg_db.customer_iceberg (
     c_first_name STRING,
     c_last_name STRING,
     c_email_address STRING)
-LOCATION 's3://otfs-workshop-data-<your-account-id>/datasets/athena_iceberg/customer_iceberg'
+LOCATION 's3://otfs-aula-<your-account-id>/datasets/athena_iceberg/customer_iceberg'
 TBLPROPERTIES (
   'table_type'='iceberg',
   'format'='PARQUET',
@@ -82,7 +98,7 @@ SHOW TABLES IN athena_iceberg_db;
 
 ---
 
-1. Você pode verificar o esquema e a definição de partição da tabela com a consulta DESCRIBE. Você também pode selecionar o nome da tabela no painel esquerdo para visualizar os detalhes da tabela.
+3. Você pode verificar o esquema e a definição de partição da tabela com a consulta DESCRIBE. Você também pode selecionar o nome da tabela no painel esquerdo para visualizar os detalhes da tabela.
 
 ``` sql
 DESCRIBE customer_iceberg;
@@ -159,7 +175,7 @@ select count(*) from athena_iceberg_db.customer_iceberg;
 Você deve ver `20000 'nos resultados da consulta.
 
 
-9. Dentro do local da tabela do [Amazon S3](https://us-east-1.console.aws.amazon.com/s3/home?region=us-east-1): `s3://otfs-workshop-data-<your-account-id>/datasets/athena_iceberg/customer_iceberg/` (`<your-account-id>` é o ID da sua conta atual), você verá duas pastas, **data** e **metadata**. A pasta **data** contém os dados reais no formato parquet e a pasta **metadata** contém vários arquivos de metadados.
+9. Dentro do local da tabela do [Amazon S3](https://us-east-1.console.aws.amazon.com/s3/home?region=us-east-1): `s3://otfs-aula-<your-account-id>/datasets/athena_iceberg/customer_iceberg/` (`<your-account-id>` é o ID da sua conta atual), você verá duas pastas, **data** e **metadata**. A pasta **data** contém os dados reais no formato parquet e a pasta **metadata** contém vários arquivos de metadados.
 Existem três tipos de arquivos de metadados:
 
 * arquivo de metadados, terminando com `.metadata.json`

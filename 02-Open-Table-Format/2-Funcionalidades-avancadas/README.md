@@ -30,7 +30,7 @@ CREATE TABLE athena_iceberg_db.web_sales_iceberg (
     ws_warehouse_sk INT,
     ws_sales_time TIMESTAMP)
 PARTITIONED BY (year(ws_sales_time))
-LOCATION 's3://otfs-workshop-data-<your-account-id>/datasets/athena_iceberg/web_sales_iceberg'
+LOCATION 's3://otfs-aula-<your-account-id>/datasets/athena_iceberg/web_sales_iceberg'
 TBLPROPERTIES (
   'table_type'='iceberg',
   'format'='PARQUET',
@@ -129,7 +129,7 @@ CREATE TABLE athena_iceberg_db.merge_table (
     ws_sales_time TIMESTAMP,
     operation string)
 PARTITIONED BY (year(ws_sales_time))
-LOCATION 's3://otfs-workshop-data-<your-account-id>/datasets/athena_iceberg/merge_table'
+LOCATION 's3://otfs-aula-<your-account-id>/datasets/athena_iceberg/merge_table'
 TBLPROPERTIES (
   'table_type'='iceberg',
   'format'='PARQUET',
@@ -302,7 +302,7 @@ CREATE TABLE athena_iceberg_db.web_sales_iceberg (
   ws_warehouse_sk INT,
   ws_sales_time TIMESTAMP)
   PARTITIONED BY (year(ws_sales_time))
-  LOCATION 's3://otfs-workshop-data-<your-account-id>/datasets/athena_iceberg/web_sales_iceberg'
+  LOCATION 's3://otfs-aula-<your-account-id>/datasets/athena_iceberg/web_sales_iceberg'
   TBLPROPERTIES (
   'table_type'='iceberg',
   'format'='PARQUET',
